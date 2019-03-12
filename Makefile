@@ -1,5 +1,5 @@
 PKG_NAME := gexiv2
-URL = https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.10.tar.xz
+URL = https://download.gnome.org/sources/gexiv2/0.12/gexiv2-0.12.0.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

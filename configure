@@ -1,1 +1,1 @@
---with-python3-girdir
+-Dpython3_girdir=true
