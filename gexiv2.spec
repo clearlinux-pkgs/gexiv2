@@ -4,7 +4,7 @@
 #
 Name     : gexiv2
 Version  : 0.12.0
-Release  : 7
+Release  : 8
 URL      : https://download.gnome.org/sources/gexiv2/0.12/gexiv2-0.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gexiv2/0.12/gexiv2-0.12.0.tar.xz
 Summary  : GObject bindings for exiv2
