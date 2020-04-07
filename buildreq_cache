@@ -1,5 +1,3 @@
 0.12.0
 exiv2-dev
-pygobject
-pygobject-python
-vala
+pkgconfig(exiv2)

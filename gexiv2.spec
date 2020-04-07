@@ -4,7 +4,7 @@
 #
 Name     : gexiv2
 Version  : 0.12.0
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/gexiv2/0.12/gexiv2-0.12.0.tar.xz
 Source0  : https://download.gnome.org/sources/gexiv2/0.12/gexiv2-0.12.0.tar.xz
 Summary  : GObject bindings for exiv2
@@ -16,8 +16,7 @@ Requires: gexiv2-license = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : buildreq-meson
 BuildRequires : exiv2-dev
-BuildRequires : pygobject
-BuildRequires : pygobject-python
+BuildRequires : pkgconfig(exiv2)
 BuildRequires : vala
 BuildRequires : vala-dev
 
@@ -66,31 +65,42 @@ license components for the gexiv2 package.
 
 %prep
 %setup -q -n gexiv2-0.12.0
+cd %{_builddir}/gexiv2-0.12.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557179742
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1586225194
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain -Dpython3_girdir=true  builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dpython3_girdir=true  builddir
 ninja -v -C builddir
+
+%check
+export LANG=C.UTF-8
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+meson test -C builddir || :
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gexiv2
-cp COPYING %{buildroot}/usr/share/package-licenses/gexiv2/COPYING
+cp %{_builddir}/gexiv2-0.12.0/COPYING %{buildroot}/usr/share/package-licenses/gexiv2/be0b40ce8f9532b75966a20d14af123d3c6b05aa
+cp %{_builddir}/gexiv2-0.12.0/debian/copyright %{buildroot}/usr/share/package-licenses/gexiv2/93aa7c82f62a2b22955f87e9eb752b74d33c68f1
 DESTDIR=%{buildroot} ninja -C builddir install
+## Remove excluded files
+rm -f %{buildroot}/usr/true/GExiv2.py
 
 %files
 %defattr(-,root,root,-)
-%exclude /usr/true/GExiv2.py
 
 %files data
 %defattr(-,root,root,-)
@@ -120,4 +130,5 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gexiv2/COPYING
+/usr/share/package-licenses/gexiv2/93aa7c82f62a2b22955f87e9eb752b74d33c68f1
+/usr/share/package-licenses/gexiv2/be0b40ce8f9532b75966a20d14af123d3c6b05aa
