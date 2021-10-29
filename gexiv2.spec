@@ -4,7 +4,7 @@
 #
 Name     : gexiv2
 Version  : 0.14.0
-Release  : 22
+Release  : 23
 URL      : https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.0.tar.xz
 Source0  : https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.0.tar.xz
 Summary  : No detailed summary available
