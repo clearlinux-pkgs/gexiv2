@@ -4,7 +4,7 @@
 #
 Name     : gexiv2
 Version  : 0.14.0
-Release  : 23
+Release  : 24
 URL      : https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.0.tar.xz
 Source0  : https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.0.tar.xz
 Summary  : No detailed summary available
@@ -95,7 +95,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632416917
+export SOURCE_DATE_EPOCH=1635730395
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -112,7 +112,7 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-meson test -C builddir || :
+meson test -C builddir --print-errorlogs || :
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gexiv2
@@ -120,7 +120,7 @@ cp %{_builddir}/gexiv2-0.14.0/COPYING %{buildroot}/usr/share/package-licenses/ge
 cp %{_builddir}/gexiv2-0.14.0/debian/copyright %{buildroot}/usr/share/package-licenses/gexiv2/93aa7c82f62a2b22955f87e9eb752b74d33c68f1
 DESTDIR=%{buildroot} ninja -C builddir install
 ## Remove excluded files
-rm -f %{buildroot}/usr/true/GExiv2.py
+rm -f %{buildroot}*/usr/true/GExiv2.py
 
 %files
 %defattr(-,root,root,-)
